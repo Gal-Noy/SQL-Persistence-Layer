@@ -16,13 +16,14 @@ def print_tables():
 
 def detailed_employees_report():
     print('\nEmployees report')
-    for record in repo.execute_command("""SELECT employees.name, employees.salary, branches.location, SUM(activities.quantity)
+    for record in repo.execute_command("""SELECT employees.name, employees.salary, branches.location, SUM(activities.quantity*(-1)*products.price)
                                           FROM employees
                                             LEFT JOIN activities ON activities.activator_id=employees.id
                                             LEFT JOIN branches ON employees.branche=branches.id
+                                            LEFT JOIN products ON activities.product_id=products.id
                                           GROUP BY employees.id
                                           ORDER BY employees.name ASC"""):
-        total_sales_income = abs(record[3]) if record[3] else 0
+        total_sales_income = record[3] if record[3] else 0
         print(f"{record[0].decode()} {record[1]} {record[2].decode()} {total_sales_income}")
 
 
