@@ -12,7 +12,7 @@ class Employee(object):
         self.branche = branche
 
     def __str__(self):
-        return f"({self.id}, {self.name.decode()}, {self.salary}, {self.branche})"
+        return f"({self.id}, '{self.name.decode()}', {self.salary}, {self.branche})"
 
 
 class Supplier(object):
@@ -22,7 +22,7 @@ class Supplier(object):
         self.contact_information = contact_information
 
     def __str__(self):
-        return f"({self.id}, {self.name.decode()}, {self.contact_information.decode()})"
+        return f"({self.id}, '{self.name.decode()}', '{self.contact_information.decode()}')"
 
 
 class Product(object):
@@ -33,7 +33,7 @@ class Product(object):
         self.quantity = quantity
 
     def __str__(self):
-        return f"({self.id}, {self.description.decode()}, {self.price}, {self.quantity})"
+        return f"({self.id}, '{self.description.decode()}', {self.price}, {self.quantity})"
 
 
 class Branche(object):
@@ -43,7 +43,7 @@ class Branche(object):
         self.number_of_employees = number_of_employees
 
     def __str__(self):
-        return f"({self.id}, {self.location.decode()}, {self.number_of_employees})"
+        return f"({self.id}, '{self.location.decode()}', {self.number_of_employees})"
 
 
 class Activitie(object):
@@ -54,7 +54,7 @@ class Activitie(object):
         self.date = date
 
     def __str__(self):
-        return f"({self.product_id}, {self.quantity}, {self.activator_id}, {self.date.decode()})"
+        return f"({self.product_id}, {self.quantity}, {self.activator_id}, '{self.date.decode()}')"
 
 
 # Repository
