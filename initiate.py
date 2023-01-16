@@ -5,19 +5,19 @@ import os
 
 
 def add_branche(split_line: list[str]):
-    repo.branches_dao.insert(Branche(*split_line))
+    repo.tables_daos['Branches'].insert(Branche(*split_line))
 
 
 def add_supplier(split_line: list[str]):
-    repo.suppliers_dao.insert(Supplier(*split_line))
+    repo.tables_daos['Suppliers'].insert(Supplier(*split_line))
 
 
 def add_product(split_line: list[str]):
-    repo.products_dao.insert(Product(*split_line))
+    repo.tables_daos['Products'].insert(Product(*split_line))
 
 
 def add_employee(split_line: list[str]):
-    repo.employees_dao.insert(Employee(*split_line))
+    repo.tables_daos['Employees'].insert(Employee(*split_line))
 
 
 adders = {"B": add_branche,

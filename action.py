@@ -8,7 +8,11 @@ def main(args: list[str]):
     with open(input_file_name) as input_file:
         for line in input_file:
             split_line: list[str] = line.strip().split(", ")
-            # TODO: apply the action (and insert to the table) if possible
+            curr_quantity = int(repo.execute_command(f"SELECT quantity FROM products where id = {split_line[0]}")[0][0])
+            quantity_diff = int(split_line[1])
+            if quantity_diff > 0 or (quantity_diff < 0 and curr_quantity >= quantity_diff):
+                repo.execute_command(f"UPDATE products SET quantity = {curr_quantity + quantity_diff}")
+                repo.tables_daos['Activities'].insert(Activitie(*split_line))
 
 
 if __name__ == '__main__':

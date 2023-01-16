@@ -9,7 +9,7 @@ def orm(cursor, dto_type):
     # to any database field, so we can ignore it.
     args = args[1:]
 
-    # gets the names of the columns returned in the cursor
+    # gets the names of the columns returned to the cursor
     col_names = [column[0] for column in cursor.description]
 
     # map them into the position of the corresponding constructor argument
@@ -45,6 +45,12 @@ class Dao(object):
     def find_all(self):
         c = self._conn.cursor()
         c.execute('SELECT * FROM {}'.format(self._table_name))
+        return orm(c, self._dto_type)
+
+    def find_all_sorted(self):
+        c = self._conn.cursor()
+        key = 'id' if self._table_name != 'activities' else 'date'
+        c.execute(f"SELECT * FROM {self._table_name} ORDER BY {key} ASC")
         return orm(c, self._dto_type)
 
     def find(self, **keyvals):

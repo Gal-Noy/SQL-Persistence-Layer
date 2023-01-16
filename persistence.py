@@ -5,41 +5,56 @@ from dbtools import Dao
 
 # Data Transfer Objects:
 class Employee(object):
-    def __init__(self, employee_id, name, salary, branche):
-        self.id = employee_id
+    def __init__(self, id, name, salary, branche):
+        self.id = id
         self.name = name
         self.salary = salary
         self.branche = branche
 
+    def __str__(self):
+        return f"({self.id}, {self.name.decode()}, {self.salary}, {self.branche})"
+
 
 class Supplier(object):
-    def __init__(self, supplier_id, name, contact_information):
-        self.id = supplier_id
+    def __init__(self, id, name, contact_information):
+        self.id = id
         self.name = name
         self.contact_information = contact_information
 
+    def __str__(self):
+        return f"({self.id}, {self.name.decode()}, {self.contact_information.decode()})"
+
 
 class Product(object):
-    def __init__(self, product_id, description, price, quantity):
-        self.id = product_id
+    def __init__(self, id, description, price, quantity):
+        self.id = id
         self.description = description
         self.price = price
         self.quantity = quantity
 
+    def __str__(self):
+        return f"({self.id}, {self.description.decode()}, {self.price}, {self.quantity})"
+
 
 class Branche(object):
-    def __init__(self, branche_id, location, number_of_employees):
-        self.id = branche_id
+    def __init__(self, id, location, number_of_employees):
+        self.id = id
         self.location = location
         self.number_of_employees = number_of_employees
+
+    def __str__(self):
+        return f"({self.id}, {self.location.decode()}, {self.number_of_employees})"
 
 
 class Activitie(object):
     def __init__(self, product_id, quantity, activator_id, date):
-        self.id = product_id
+        self.product_id = product_id
         self.quantity = quantity
         self.activator_id = activator_id
         self.date = date
+
+    def __str__(self):
+        return f"({self.product_id}, {self.quantity}, {self.activator_id}, {self.date.decode()})"
 
 
 # Repository
@@ -47,12 +62,11 @@ class Repository(object):
     def __init__(self):
         self._conn = sqlite3.connect('bgumart.db')
         self._conn.text_factory = bytes
-
-        self.employees_dao = Dao(Employee, self._conn)
-        self.suppliers_dao = Dao(Supplier, self._conn)
-        self.products_dao = Dao(Product, self._conn)
-        self.branches_dao = Dao(Branche, self._conn)
-        self.activities_dao = Dao(Activitie, self._conn)
+        self.tables_daos = {'Activities': Dao(Activitie, self._conn),
+                            'Branches': Dao(Branche, self._conn),
+                            'Employees': Dao(Employee, self._conn),
+                            'Products': Dao(Product, self._conn),
+                            'Suppliers': Dao(Supplier, self._conn)}
 
     def _close(self):
         self._conn.commit()

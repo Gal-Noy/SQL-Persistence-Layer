@@ -13,7 +13,12 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="930b65be-2391-408d-835c-c6367dd132e9">
-      <console name="bgumart.db" type="STANDARD" schema="main" session="Main"><![CDATA[SELECT * FROM MAIN.activities]]></console>
+      <console name="bgumart.db" type="STANDARD" schema="main" session="Main"><![CDATA[SELECT activities.date, products.description, activities.quantity, employees.name, suppliers.name
+FROM activities
+LEFT JOIN products ON activities.product_id=products.id
+LEFT JOIN employees ON activities.activator_id=employees.id
+LEFT JOIN suppliers ON activities.activator_id=suppliers.id
+ORDER BY date ASC]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
