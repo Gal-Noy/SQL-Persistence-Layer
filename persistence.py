@@ -1,40 +1,63 @@
 import sqlite3
 import atexit
 from dbtools import Dao
- 
+
+
 # Data Transfer Objects:
 class Employee(object):
-    #TODO: implement
-    pass
- 
+    def __init__(self, employee_id, name, salary, branche):
+        self.id = employee_id
+        self.name = name
+        self.salary = salary
+        self.branche = branche
+
+
 class Supplier(object):
-    #TODO: implement
-    pass
+    def __init__(self, supplier_id, name, contact_information):
+        self.id = supplier_id
+        self.name = name
+        self.contact_information = contact_information
+
 
 class Product(object):
-    #TODO: implement
-    pass
+    def __init__(self, product_id, description, price, quantity):
+        self.id = product_id
+        self.description = description
+        self.price = price
+        self.quantity = quantity
+
 
 class Branche(object):
-    #TODO: implement
-    pass
+    def __init__(self, branche_id, location, number_of_employees):
+        self.id = branche_id
+        self.location = location
+        self.number_of_employees = number_of_employees
+
 
 class Activitie(object):
-    #TODO: implement
-    pass
- 
- 
-#Repository
+    def __init__(self, product_id, quantity, activator_id, date):
+        self.id = product_id
+        self.quantity = quantity
+        self.activator_id = activator_id
+        self.date = date
+
+
+# Repository
 class Repository(object):
     def __init__(self):
         self._conn = sqlite3.connect('bgumart.db')
         self._conn.text_factory = bytes
-        #TODO: complete
- 
+
+        self.employees_dao = Dao(Employee, self._conn)
+        self.suppliers_dao = Dao(Supplier, self._conn)
+        self.products_dao = Dao(Product, self._conn)
+        self.branches_dao = Dao(Branche, self._conn)
+        self.activities_dao = Dao(Activitie, self._conn)
+
     def _close(self):
         self._conn.commit()
         self._conn.close()
- 
+
     def create_tables(self):
         self._conn.executescript("""
             CREATE TABLE employees (
@@ -73,7 +96,8 @@ class Repository(object):
 
     def execute_command(self, script: str) -> list:
         return self._conn.cursor().execute(script).fetchall()
- 
+
+
 # singleton
 repo = Repository()
 atexit.register(repo._close)

@@ -13,7 +13,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="930b65be-2391-408d-835c-c6367dd132e9">
-      <console name="SPL-Assignment-4-DB" type="STANDARD" schema="main" session="Main"><![CDATA[select * from main.activities]]></console>
+      <console name="bgumart.db" type="STANDARD" schema="main" session="Main"><![CDATA[SELECT * FROM MAIN.activities]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
