@@ -1,0 +1,2 @@
+# SQL-Persistence-Layer
+This assignment was taken in System Programming Laboratory course. The task was to build a software that manages supermarket chains. The software supports managing a large number of employees and the buying/selling of products. The software also manages the inventory and thus contact various suppliers, who supply products. Sells and deliveries of products are also registered and logged for tax purposes.
